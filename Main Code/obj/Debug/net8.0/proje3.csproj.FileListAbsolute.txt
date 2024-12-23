@@ -1,0 +1,14 @@
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\bin\Debug\net8.0\proje3.exe
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\bin\Debug\net8.0\proje3.deps.json
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\bin\Debug\net8.0\proje3.runtimeconfig.json
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\bin\Debug\net8.0\proje3.dll
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\bin\Debug\net8.0\proje3.pdb
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\proje3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\proje3.AssemblyInfoInputs.cache
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\proje3.AssemblyInfo.cs
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\proje3.csproj.CoreCompileInputs.cache
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\proje3.dll
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\refint\proje3.dll
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\proje3.pdb
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\proje3.genruntimeconfig.cache
+C:\Users\Irfan Burak Ege\OneDrive\ders\2. SINIF 1. DÖNEM\DATA STRUCTURES\proje3\proje3\obj\Debug\net8.0\ref\proje3.dll
