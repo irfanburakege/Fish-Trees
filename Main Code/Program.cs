@@ -662,9 +662,4 @@ namespace proje3
             Console.WriteLine();
         }
     }
-
-
-
-
-
 }
