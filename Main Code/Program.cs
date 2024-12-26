@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -30,12 +30,14 @@ namespace proje3
                 BalıkAğacı.Insert(b);
             }
 
+            Console.WriteLine("BALIK AĞACI INORDER(ALFABETİK): ");
+            Console.WriteLine();
             BalıkAğacı.PrintInOrder();//ağacı inorder yazdırma
             Console.WriteLine();
 
             OrtalamaDerinlikBulYazdır(BalıkAğacı);//tüm kelime ağaçlarının ortalama derinliğini bulan methodu çalıştırma
-
-            Console.WriteLine("Yazdırmak istediğiniz harf aralığının başlangıç harfini giriniz: ");
+            Console.WriteLine();
+            Console.Write("Yazdırmak istediğiniz harf aralığını giriniz(XY şeklinde bitişik olarak tek satırda): "); // verilen aralıktaki balıkları yazdırma
             string input = Console.ReadLine();
             char start = input[0];
             char end = input[1];
@@ -43,21 +45,19 @@ namespace proje3
             Console.WriteLine();
 
             EgeDeniziB[] balıkArray = BalıkAğacı.ToArray();//alfabetik sıradaki balıkArrayi
-            Console.WriteLine("BALIK ARRAY: ");
-            foreach (EgeDeniziB a in balıkArray)
-            {
-                Console.Write(a.BalıkAdı +" , ");
-            }
-            
-
-            Console.WriteLine("Dengeli Balık Ağaç postOrder");
+                    
             BinaryTreeBalık dengeliBalıkAğaç = DengeliAğaçOluştur(BalıkAğacı,balıkArray);//dengeli balık ağacı oluşturma
+            Console.WriteLine("Dengeli Balık Ağaç postOrder: ");
             dengeliBalıkAğaç.PrintPostOrder(dengeliBalıkAğaç.getRoot());//postorder isimleri yazdırarak çalıştığını görme
 
             Hashtable balıkHash = new Hashtable(); // balıklar hashtable
             HashTableEkle(balıkHash, balıkArray);   // arraydeki balıkları alfabetik hashTable ekle
+            Console.WriteLine("Balık HashTable: ");
+            foreach(string ad in balıkHash.Keys) { Console.Write(ad+", "); }
             Console.WriteLine();
             HashParagrafDeğiştir(balıkHash);    // adı verilen balığın bilgi paragrafını değiştirme
+            Console.WriteLine();
+             
 
             MaxHeap balıkHeap = new MaxHeap(38); // balık Max Heap oluşturma
             foreach (EgeDeniziB b in balıkArray)
@@ -67,16 +67,14 @@ namespace proje3
             Console.WriteLine("Balık Heap ilk 3 eleman: ");
             for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine(balıkHeap.Sil().ToString()+"  ");
+                Console.Write(balıkHeap.Sil().ToString());
             }
             Console.WriteLine();
-            
         }
 
         static string[] BalıkStringleriniAyırma(string text)// text dosyasını sıralamaya göre ayıran method
         {
             string[] BalıklarAyrılmış = new string[38];// son array
-            //string[] textSatırAyrılmış = text.Split("\n\n"); satır başlarındaki sıralama sayılarını kontrol etmek için tek tek her harfi dönmemek için oluşturduğumuz array
 
             for (int i = 1; i < 39; i++)
             {
@@ -109,7 +107,6 @@ namespace proje3
             string[] AdSatırıAyrılmış = new string[2];
             AdSatırıAyrılmış[0] = AdSatırı[0];
             AdSatırıAyrılmış[1] = AdSatırı.Length > 1 ? AdSatırı[1].Replace(')', ' ').Trim() : "Diğer Adı Yok";
-
             return AdSatırıAyrılmış;
         }
         static EgeDeniziB BalıkClassOluştur(string balık)//verilen stringi balık classına dönüştüren method
@@ -119,34 +116,12 @@ namespace proje3
             string AdSatırı = balıkSatırAyrılmış[0];//ilk ad satırı
             string[] AdSatırıAyrılmış = AdAyırma(AdSatırı);//diğer adı ayrılıyor
             string ad = AdSatırıAyrılmış[0];
-            string DiğerAd = AdSatırıAyrılmış[1];
             string bilgiPrg="";
             for (int i = 1; i < balıkSatırAyrılmış.Length; i++)//tüm satırları döndüğümüz for döngüsü
             {
                 bilgiPrg += balıkSatırAyrılmış[i] + "\n\n";             
             }
             BinaryTree kelimeAğaç = bilgiKelimeAğacıOluştur(bilgiPrg);
-            /*HashSet<string> bilgiSplit = new HashSet<string>();
-            for (int i = 1; i < balıkSatırAyrılmış.Length; i++)//tüm satırları döndüğümüz for döngüsü
-            {
-                string satır = balıkSatırAyrılmış[i];
-                string[] satırSplit = satır.Split();
-                foreach (string word in satırSplit) //ağaca ekleme döngüsü
-                { 
-                    string str = word;
-                    if(word.StartsWith('.') || word.StartsWith('(')) {str = word.Substring(1); }//başındaki sembolleri at
-                    if (word.EndsWith('.') || word.EndsWith(')') || word.EndsWith(',')) { str = word.Remove(word.Length-1); }//sonundaki sembolleri at
-                    if (!str.Any(char.IsDigit))//kelimenin sayı olmadığı kontrol edildikten sonra hashSete ekleniyor
-                    {
-                        str = str.ToLower();
-                        bilgiSplit.Add(str);
-                    }
-                }
-            }
-            foreach (string str in bilgiSplit)
-            {
-                kelimeAğaç.Insert(str);
-            }*/
             return new EgeDeniziB(ad, kelimeAğaç);
         }//balık class oluştur kapanışı
         static BinaryTree bilgiKelimeAğacıOluştur(string paragraf)
@@ -173,7 +148,6 @@ namespace proje3
             }
             return kelimeAğaç;
         }
-
         static void OrtalamaDerinlikBulYazdır(BinaryTreeBalık BalıkAğacı)
         {
             int balıkSayısı = BalıkAğacı.balıkSayısı;
@@ -181,21 +155,15 @@ namespace proje3
             double ortDengeli = Math.Ceiling((double)BalıkAğacı.toplamDengeliDerinlik / balıkSayısı);
             Console.WriteLine($"Ortalma Kelime Ağacı Derinliği : {BalıkAğacı.toplamKelimeDerinliği}/{BalıkAğacı.balıkSayısı} = {ortKelimeDerinlik} ," +
                               $"Dengeli olsaydı: {BalıkAğacı.toplamDengeliDerinlik}/{balıkSayısı} = {ortDengeli}");
-
         }
-
-
         static void DengeliAğacaEkleme(EgeDeniziB[] balıkArray, BinaryTreeBalık dengeliAğaç, int start, int end)
         {
             if (start <= end)
             {
                 // ortayı bulma
                 int mid = (start + end) / 2;
-                //Console.WriteLine("mid " + mid);
-
                 dengeliAğaç.Insert(balıkArray[mid]);
-
-                // Recursively add elements from the left and right halves
+                // Recursive olarak sol ve sağ için devam et
                 DengeliAğacaEkleme(balıkArray, dengeliAğaç, start, mid - 1);
                 DengeliAğacaEkleme(balıkArray, dengeliAğaç, mid + 1, end);
             }
@@ -210,10 +178,12 @@ namespace proje3
 
         static void HashTableEkle(Hashtable balıkHash, EgeDeniziB[] balıkArray)
         {
+            int i = 0;
             foreach (EgeDeniziB b in balıkArray) 
             {
+                Console.WriteLine(++i +" "+ b);
                 if (b.BilgiKelimeAğacı != null)
-                    balıkHash[b.BalıkAdı] = b.BilgiKelimeAğacı;
+                    balıkHash[b.BalıkAdı.Trim()] = b.BilgiKelimeAğacı;
                 else balıkHash[b.BalıkAdı] = null;
             }
         }
@@ -226,11 +196,12 @@ namespace proje3
                 Console.WriteLine("Girdiğiniz Balık mevcut değil!");
                 return; 
             }
-            Console.WriteLine("Yeni paragraf");
+            Console.WriteLine("YENİ paragrafı giriniz: ");
             string prg = Console.ReadLine();    // yeni paragrafı konsoldan al
             BinaryTree ağaç = bilgiKelimeAğacıOluştur(prg);  // metod kullanarak ağacı oluştur
             hash[ad] = ağaç;
         }
+
     }//program sonu
 
 
@@ -253,10 +224,8 @@ namespace proje3
 
         public override string ToString()
         {
-            // Balık adını ve bilgi kelime ağacını yazdırma
-            string bAğaç = BilgiKelimeAğacı.toStringInOrder();
-            return $"BALIK ADI: {this.BalıkAdı}\n"+
-                    $"BILGI KELİME AĞACI: \n {bAğaç}";
+            // Balık adını yazdırma
+            return $"BALIK ADI: {this.BalıkAdı}\n";
         }
     }
 
@@ -333,48 +302,18 @@ namespace proje3
                 PrintInOrder(node.Right); // Sağ alt ağacı yazdır
             }
         }
-        public string toStringInOrder() // InOrder şekilde stringe atma (EgeDeniziB ToString methodu için)
+
+        public void GetDepth(TreeNode node, int d) // derinlik bulma methodu
         {
-            string str = "";
-            toStringInOrder(root, str);
-            return str;
-        }
-        private void toStringInOrder(TreeNode node,string str) // verilen stringe kelime ağacındaki kelimeleri alfatbetik olarak recursive ekleyen method
-        {
-            if (node != null) // Eğer mevcut düğüm boş değilse
+            if (node != null)// node null değilse
             {
-                toStringInOrder(node.Left,str); // Sol alt ağaca devam et
-                str = str + node.Word + " "; // Mevcut düğümü ekle
-                toStringInOrder(node.Right,str); // Sağ alt ağaca devam et
+                d = d + 1; // derinliği 1 artır
+                GetDepth(node.Left, d); // sol ağaç için recursive devam et
+                // yaprağa ulaşıldığında daha derine ulaştıysa
+                if ((node.Left == null) && (node.Right == null) && d > derinlik) 
+                    derinlik = d; // derinliği güncelle
+                GetDepth(node.Right, d);// sağ ağaç için tekrarla
             }
-        }
-
-        public void GetDepth(TreeNode node, int d)
-        {
-            if (node != null)
-            {
-                d = d + 1;
-                GetDepth(node.Left, d);
-                if ((node.Left == null) && (node.Right == null) && d > derinlik)
-                    derinlik = d;
-                GetDepth(node.Right, d);
-            }
-        }
-
-
-        public int GetNodeCount() // Düğüm sayısını bulmak için metot
-        {
-            return GetNodeCount(root); // Kök düğümden başlayarak düğüm sayısını hesapla
-        }
-
-        private int GetNodeCount(TreeNode node) // Rekürsif düğüm sayma metodu
-        {
-            if (node == null) // Eğer mevcut düğüm boşsa
-            {
-                return 0; // Düğüm sayısı 0
-            }
-            // Mevcut düğüm + sol ve sağ alt ağaçların düğüm sayısını topla
-            return 1 + GetNodeCount(node.Left) + GetNodeCount(node.Right);
         }
 
         public bool Contains(TreeNode node, string kelime)
@@ -414,7 +353,6 @@ namespace proje3
         public int toplamKelimeDerinliği = 0;//, bAğaçDerinlik = 0;
         public double toplamDengeliDerinlik = 0;//, bAğaçDengeliDerinlik = 0;
         public int balıkSayısı = 0;// toplam Balık Sayısı
-        private int indexArr = 0;
         public TreeNodeBalık getRoot()
         {
             return root;
@@ -464,7 +402,7 @@ namespace proje3
 
                 PrintInOrder(node.Left); // Sol alt ağacı yazdır
 
-                Console.WriteLine(b + "KELİME AĞACI ALFABETİK SIRADA : ");
+                Console.WriteLine(b + "KELİME AĞACI : ");
                 kAğaç.PrintInOrder();// Mevcut düğümü yazdır
 
                 double dengeliDerinlik = Math.Floor(Math.Log2(kAğaç.düğümSayısı+1)-1);
@@ -479,20 +417,20 @@ namespace proje3
 
         public EgeDeniziB[] ToArray()
         {
-            EgeDeniziB[] arr = new EgeDeniziB[balıkSayısı];
-            int index = 0;
-            InorderArrayeEkle(root, arr, indexArr);
-            return arr;
+            EgeDeniziB[] arr = new EgeDeniziB[balıkSayısı]; // Balık sayısına uygun dizi oluştur
+            int index = 0; // Dizinin hangi pozisyonunun doldurulduğunu takip eden değişken
+            InorderArrayeEkle(root, arr, ref index); // Diziye doldurma işlemini başlat
+            return arr; // Doldurulmuş diziyi döndür
         }
-        private void InorderArrayeEkle(TreeNodeBalık node, EgeDeniziB[] array, int index)
+
+        private void InorderArrayeEkle(TreeNodeBalık node, EgeDeniziB[] array, ref int index)
         {
-            if (node == null)
+            if (node == null) // Eğer düğüm boşsa işlemi sonlandır
                 return;
 
-            InorderArrayeEkle(node.Left, array, indexArr);
-            array[indexArr++] = node.Balık;
-            InorderArrayeEkle(node.Right, array, indexArr);
-
+            InorderArrayeEkle(node.Left, array, ref index); // Sol alt ağacı diziye ekle
+            array[index++] = node.Balık; // Mevcut düğümdeki veriyi diziye ekle ve index'i artır
+            InorderArrayeEkle(node.Right, array, ref index); // Sağ alt ağacı diziye ekle
         }
         public void PrintPostOrder(TreeNodeBalık node)
         {
@@ -536,17 +474,6 @@ namespace proje3
             // Sağ alt ağacı kontrol et
             ArasınıYazdırRec(node.Right, start, end);
         }
-        /*public void GetDepth(TreeNodeBalık node, int d)
-        {
-            if (node != null)
-            {
-                d = d + 1;
-                GetDepth(node.Left, d);
-                if ((node.Left == null) && (node.Right == null) && d > bAğaçDengeliDerinlik)
-                    bAğaçDengeliDerinlik = d;
-                GetDepth(node.Right, d);
-            }
-        }*/
     }
     public class MaxHeap
     {
@@ -624,13 +551,16 @@ namespace proje3
                 int leftChild = 2 * index + 1;//sol çocuk
                 int rightChild = leftChild + 1 ;//sağ çocuk
                 int largest = index;
+                string leftName = heapArr[leftChild].BalıkAdı;
+                string rightName = heapArr[rightChild].BalıkAdı;
+                string largestName = heapArr[largest].BalıkAdı;
 
-                if (leftChild < currSize && heapArr[leftChild].BalıkAdı.CompareTo(heapArr[largest]) == 1) // leftChild mevcut ve parenttan büyük ise
+                if (leftChild < currSize && leftName.CompareTo(largestName) == 1) // leftChild mevcut ve parenttan büyük ise
                 {
                     largest = leftChild;
                 }
 
-                if (rightChild < currSize && heapArr[rightChild].BalıkAdı.CompareTo(heapArr[largest]) == 1) // rightChild mevcut ve parenttan büyük ise
+                if (rightChild < currSize && rightName.CompareTo(largestName) == 1) // rightChild mevcut ve parenttan büyük ise
                 {
                     largest = rightChild;
                 }
